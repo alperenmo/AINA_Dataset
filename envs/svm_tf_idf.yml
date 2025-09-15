@@ -1,0 +1,9 @@
+name: svm_tfidf
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pandas
+  - numpy
+  - scikit-learn

@@ -3,15 +3,19 @@ import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.svm import LinearSVC
+import os
 
 
-train_path = '/path/antimicrobial_nanoparticles_train_data.csv'
-test_path = '/path/antimicrobial_nanoparticles_test_data.csv'
+MODELS_DIR = os.path.dirname(os.path.abspath(__file__))
+REPO_DIR = os.path.abspath(os.path.join(MODELS_DIR,'..'))
+DATA_DIR = os.path.join(REPO_DIR,'data')
+TEST_PATH = os.path.join(DATA_DIR,'antimicrobial_nanoparticles_test_data.csv')
+TRAIN_PATH = os.path.join(DATA_DIR,'antimicrobial_nanoparticles_train_data.csv')
 
 def load_and_preprocess(path):
   df = pd.read_csv(path)
-  df['input_text'] = (df['Paper'] + ' ' + df['Abstract']).str.lower()
-  df['label'] = df['Decision1'].map({'exclude': 0, 'include': 1})
+  df['input_text'] = (df['Title'] + ' ' + df['Abstract']).str.lower()
+  df['label'] = df['Decision'].map({'exclude': 0, 'include': 1})
   return df[['input_text', 'label']]
 
 def tf_idf_transformer(train_data, text_data, max_features=1000):
@@ -32,8 +36,8 @@ def evaluate_model(model, X_train, y_train, X_test, y_test,target_names = ['excl
   return report
 
 if __name__ == '__main__':
-  train_df = load_and_preprocess(train_path)
-  test_df = load_and_preprocess(test_path)
+  train_df = load_and_preprocess(TRAIN_PATH)
+  test_df = load_and_preprocess(TEST_PATH)
   X_train, X_test, tfidf = tf_idf_transformer(train_df['input_text'], test_df['input_text'])
   y_train,y_test = train_df['label'], test_df['label']
   svm = LinearSVC()

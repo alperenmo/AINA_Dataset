@@ -9,19 +9,27 @@ import pandas as pd
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from sklearn.metrics import classification_report
 
+MODELS_DIR = os.path.dirname(os.path.abspath(__file__))
+REPO_DIR = os.path.abspath(os.path.join(MODELS_DIR,'..'))
+DATA_DIR = os.path.join(REPO_DIR,'data')
+TEST_PATH = os.path.join(DATA_DIR,'antimicrobial_nanoparticles_test_data.csv')
+TRAIN_PATH = os.path.join(DATA_DIR,'antimicrobial_nanoparticles_train_data.csv')
+
+
+# Please enter your token
 HUGGINGFACE_TOKEN = ""
 
 login(token=HUGGINGFACE_TOKEN)
 
 def load_data():
-    df_train = pd.read_csv('/Path/antimicrobial_nanoparticles_train_data.csv')  
-    df_test = pd.read_csv('/Path/antimicrobial_nanoparticles_test_data.csv')    
+    df_train = pd.read_csv('TRAIN_PATH')  
+    df_test = pd.read_csv('TEST_PATH')    
 
-    train_texts = df_train['Paper'] + " " + df_train['Abstract']
-    test_texts = df_test['Paper'] + " " + df_test['Abstract']
+    train_texts = df_train['Title'] + " " + df_train['Abstract']
+    test_texts = df_test['Title'] + " " + df_test['Abstract']
     
-    train_labels = df_train['Decision1'].apply(lambda x: 1 if x == 'include' else 0)
-    test_labels = df_test['Decision1'].apply(lambda x: 1 if x == 'include' else 0)
+    train_labels = df_train['Decision'].apply(lambda x: 1 if x == 'include' else 0)
+    test_labels = df_test['Decision'].apply(lambda x: 1 if x == 'include' else 0)
 
     return train_texts, test_texts, train_labels, test_labels
 
@@ -121,5 +129,5 @@ for i in range(5):
 })
     results_df['Match'] = results_df['Expected'] == results_df['Predicted']
 
-    xlsx_path = f'/Path/BioBERT_pred_run_{i+1}.xlsx'
+    xlsx_path = REPO_DIR
     results_df.to_excel(xlsx_path, index=False)

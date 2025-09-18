@@ -1,4 +1,4 @@
-# Antibacterial Nanoparticle Research Classification Dataset
+# AINA (Antibacterial Inorganic Nanoparticles) Dataset
 
 This repository contains a novel dataset for automated screening in the domain of Antibacterial Nanoparticles and Python scripts for the best performing two models from #Paper Name#. You can find repository structure below:
 ```

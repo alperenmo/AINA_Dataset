@@ -27,4 +27,13 @@ After activating environments and attaching abstracts, you can run the correspon
 python model_preferred.py
 ```
 
+## Credits
+
+The **AINA dataset** was developed under the *BlueSky Initiative* at the **University of Michigan College of Engineering**. Annotation Team is as follows:
+
+Brendan Knittle, Luke Wesseln, Tianjie Qiu, Alienna Glenn, Maxwell Topping, Emine Sümeyra Turalı-Emre, Sergio Q. Sanchez, Shivani Kozaker, Nicole Sorensen, William Brown, Shamalee Goonetilleke, Christopher Altheim, J. Scott VanEpps
+
+
+
+
 
